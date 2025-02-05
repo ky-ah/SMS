@@ -1,0 +1,89 @@
+defaults:
+  - _self_
+  - hydra.output_subdir: null
+  - override hydra/job_logging: none
+  - override hydra/hydra_logging: none
+
+#############
+#  general  #
+#############
+
+# dataset name (lilac-2d/lilac-3d)
+dataset: lilac-2d
+# model architecture (FiLM_ResNet/Transformer_ViT/Transformer_ResNet)
+arch: FiLM_ResNet
+# random seed for reproducibility
+seed: 0
+
+########################
+#  dataset generation  #
+########################
+
+# target directory for train and test sets
+data_dir: data
+# number of generated training sample sets (positive & negative) per stage
+task_budget_train: 4
+# number of generated test/validation sample sets (positive & negative) per stage
+task_budget_test: 1
+# Tile size used during image generation (number of pixels for each grid tile)
+tile_size: 64
+
+##############
+#  training  #
+##############
+
+# cpu/gpu training (cpu or cuda:<ID>)
+device: cuda:0
+# number of epochs for continual training on each task (assimilation+accommodation)
+epochs: 10
+# number of iterations between two consolidation steps
+ac_freq: 10
+# batch size for training
+batch_size: 32
+# whether to use adaptation-consolidation scheme (A&C)
+ac: False
+# selective specialization strategy
+strategy: all-shared
+# number of continual tasks
+T: 12
+# whether to evaluate after every task (otherwise only after training)
+eval_after_each_task: False
+# whether to have continual training
+continual: True
+
+################
+#  Replay/EWC  #
+################
+
+# replay from buffer during accommodation phase
+replay: False
+# capacity of replay buffer
+buffer_size: 3_000
+# online EWC (replay = False) or EWC from replay buffer (replay = True)
+ewc: False
+# lambda scaling factor for EWC penalty
+ewc_lambda: 100
+# discount factor for importance updates
+ewc_discount: 0.5
+
+##################
+#  optimization  #
+##################
+
+# learning rate
+lr: 2.5e-2
+
+#############
+#  logging  #
+#############
+
+# use wandb for logging experiment metrics
+wandb: False
+# wandb project name
+project_name: sms_clip
+# wandb entity
+entity: lifelong-isotropy
+# list of tags
+tags: null
+# whether to log model weights
+log_weights: False
