@@ -1,0 +1,18 @@
+lilac @ git+ssh://git@github.com/ky-ah/lilac
+clip @ git+https://github.com/openai/CLIP.git
+gputil
+info-nce-pytorch
+psutil
+higher
+humanize
+numpy
+torch
+torchvision
+transformers
+ftfy
+gym>=0.26.0
+hydra-core>=1.2.0
+hydra-optuna-sweeper
+seaborn
+wandb
+einops
